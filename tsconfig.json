@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "typeRoots": [
+      "typings"
+    ],
+    "types": [
+      "katsu-curry",
+      "commander",
+      "fluture",
+      "angular",
+      "react"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@converters": ["src/converters/*"]
+    },
+    "traceResolution": true
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
+    "useWebpackText": true
+  },
+  "exclude": [
+    "*.html",
+    "node_modules"
+  ],
+  "files": [
+    "source/index.ts"
+  ]
+}

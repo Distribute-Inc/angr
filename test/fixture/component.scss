@@ -1,0 +1,91 @@
+$turquoise-blue: #00bfca;
+$warmer-grey: #aaaaaa;
+$anchor-font-color-hover: $turquoise-blue;
+$footer-height: 110px;
+$footer-spacer-height: calc($footer-height + 64px);
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.body-content {
+    min-height: 100%;
+    margin-bottom: -$footer-height;
+}
+
+.main-footer-spacer {
+    height: $footer-spacer-height;
+}
+
+.main-footer {
+    position: relative;
+    background-color: #f7f7f7;
+    height: $footer-height;
+    line-height: $footer-height;
+    color: $warmer-grey;
+    font-size: 12px;
+}
+
+.main-footer-inner {
+    position: relative;
+    min-width: 980px;
+    max-width: 1340px;
+    padding: 0px 78px 0px 78px;
+    margin: auto;
+}
+
+.main-footer-image, .main-footer-links, .main-footer-copyright-and-support-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.main-footer-image {
+    line-height: 17px;
+    // background-image: url('/images/logo-wordmark@2x.png');
+    background-size: 123px 45px;
+    background-repeat: no-repeat;
+    width: 123px;
+    height: 45px;
+    margin-right: 70px;
+}
+
+.main-footer-links {
+    line-height: 17px;
+
+    .main-footer-links-left, .main-footer-links-right {
+        vertical-align: top;
+        display: inline-block;
+        margin-right: 60px;
+    }
+}
+
+.main-footer-links a {
+    display: block;
+    color: $warmer-grey;
+
+    &:hover {
+        color: $anchor-font-color-hover;
+    }
+}
+
+.main-footer-copyright-and-support-wrapper {
+    position: absolute;
+    height: $footer-height;
+    line-height: $footer-height;
+    margin-right: 78px;
+
+    right: 0;
+    display: block;
+    font-size: 12px;
+    color: #adadad;
+
+    cursor: default;
+
+    .main-footer-copyright-and-support {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 17px;
+    }
+}

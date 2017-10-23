@@ -1,0 +1,38 @@
+import * as angular from 'angular'
+import * as React from 'react'
+import * as react2angular from 'react2angular'
+import * as PropTypes from 'prop-types'
+
+import './{{dashCase name}}.scss'
+// import './{{dashCase name}}.html'
+// import other stuff here
+
+// these are the typescript proptypes, effectively
+export interface {{pascalCase name}}PropTypes {
+  // write your interface here
+}
+// these props are used by react2angular and various other downstream consumers
+export const propTypes = {
+  // write your propTypes here, a la https://reactjs.org/docs/typechecking-with-proptypes.html
+  // string: PropTypes.string,
+  // requiredString: PropTypes.string.isRequired,
+  // fn: PropTypes.func, // super irritating to remember this one
+  // bool: PropTypes.bool,
+  // obj: PropTypes.obj,
+  // any: PropTypes.node,
+  // aReactElement: PropTypes.element,
+  // instanceOfX: PropTypes.instanceOf(X),
+  // enumValue: PropTypes.oneOf([`a`, `b`, `c`]),
+  // shapedObject: PropTypes.shape({color: PropTypes.string, fontFamily: PropTypes.string})
+}
+
+// this is our react component
+export const {{pascalCase name}}: React.StatelessComponent<{{pascalCase name}}PropTypes> = (props: {{pascalCase name}}PropTypes)=> {
+  return ({{{html2jsx (pascalCase name) template}}})
+}
+// needs propTypes for react2angular to work
+{{pascalCase name}}.propTypes = propTypes
+
+// let's export the angular nonsense
+export const DistributeAngular{{pascalCase name}} = angular.module(`distribute.components.{{dashCase name}}`, [])
+  .component(`{{dashCase name}}`, react2angular({{pascalCase name}}))
