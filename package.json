@@ -93,7 +93,8 @@
     "globby": "^6.1.0",
     "htmltojsx": "^0.3.0",
     "inquirer-file-path": "^1.0.0",
-    "katsu-curry": "^0.6.0"
+    "katsu-curry": "^0.6.0",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
     "@types/angular": "^1.6.31",
@@ -167,7 +168,8 @@
     "typescript-babel-jest": "^1.0.5",
     "typescript-eslint-parser": "^7.0.0",
     "wallaby-webpack": "^0.0.39",
-    "webpack": "2.2.x"
+    "webpack": "2.2.x",
+    "xtrace": "^0.1.6"
   },
   "repository": "https://github.com/brekk/crang",
   "author": "brekk"

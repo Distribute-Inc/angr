@@ -8,26 +8,17 @@ import './{{dashCase name}}.scss'
 // import other stuff here
 
 // these are the typescript proptypes, effectively
-export interface {{pascalCase name}}PropTypes {
-  // write your interface here
+export interface {{pascalCase name}}Interface {
+  {{{typescript types}}}
 }
 // these props are used by react2angular and various other downstream consumers
 export const propTypes = {
   // write your propTypes here, a la https://reactjs.org/docs/typechecking-with-proptypes.html
-  // string: PropTypes.string,
-  // requiredString: PropTypes.string.isRequired,
-  // fn: PropTypes.func, // super irritating to remember this one
-  // bool: PropTypes.bool,
-  // obj: PropTypes.obj,
-  // any: PropTypes.node,
-  // aReactElement: PropTypes.element,
-  // instanceOfX: PropTypes.instanceOf(X),
-  // enumValue: PropTypes.oneOf([`a`, `b`, `c`]),
-  // shapedObject: PropTypes.shape({color: PropTypes.string, fontFamily: PropTypes.string})
+  {{{proptypes types}}}
 }
 
 // this is our react component
-export const {{pascalCase name}}: React.StatelessComponent<{{pascalCase name}}PropTypes> = (props: {{pascalCase name}}PropTypes)=> {
+export const {{pascalCase name}}: React.StatelessComponent<{{pascalCase name}}Interface> = (props: {{pascalCase name}}Interface) => {
   return ({{{html2jsx (pascalCase name) template}}})
 }
 // needs propTypes for react2angular to work
