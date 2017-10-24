@@ -1,6 +1,16 @@
 const fs = require(`fs`)
-const {join, fromPairs, I, K, curry, pipe, reduce, map, split, merge} = require(`f-utility`)
-const {trace} = require(`xtrace`)
+const {
+  trim,
+  alterLastIndex,
+  K,
+  curry,
+  pipe,
+  reduce,
+  map,
+  split
+} = require(`f-utility`)
+const thingHas = curry((thing, x) => thing.includes(x))
+// const {trace} = require(`xtrace`)
 const HTML2JSX = require(`htmltojsx`)
 const directory = require(`inquirer-file-path`)
 
@@ -11,16 +21,22 @@ const regexValidate = curry((regex, name, expected) => (
 ))
 
 const shouldExist = regexValidate(/.+/)
-const shouldBeANumber = regexValidate(/\d+/)
+// const shouldBeANumber = regexValidate(/\d+/)
 
 const prepend = curry((before, x) => before + x)
 const append = curry((after, x) => x + after)
 
-const addRequirement = curry((k, v) => (
-  k[k.length - 1] === `?` ?
-  v :
-  append(`.isRequired`, v)
-))
+const removeLast = (x) => x.substr(0, x.length - 1)
+
+const addRequirement = ([k, v]) => {
+  const last = k.length - 1
+  const isCurious = k[last] === `?`
+  return (
+    isCurious ?
+    [removeLast(k), v] :
+    [k, append(`.isRequired`, v)]
+  )
+}
 
 const unchangedTypes = [
   `boolean`,
@@ -44,14 +60,33 @@ const convertTSToPropTypes = pipe(
   prepend(`PropTypes.`)
 )
 
+/*
+ this enforces the pattern we use to get props / types from the command-line
+ input: "a:number,b:string,c?:any,d:boolean"
+ output: [
+   [`a`, `number`],
+   [`b`, `string`],
+   [`c?`, `any`],
+   [`d`, `boolean`]
+ ]
+ */
 const doubleSplit = curry((d1, d2, x) => {
-  if (!x) {
+  // check to see if there's a prop on x
+  const has = thingHas(x)
+  // shortcut early
+  if (!x || !has(d1) || !has(d2)) {
     return []
   }
-  if (x.indexOf(d1) === -1 || x.indexOf(d2) === -1) {
-    return []
-  }
-  return map(split(d2), split(d1, x) || [])
+  // like x.split(d1).map((y) => y.split(d2)) but cleaner
+  return pipe(
+    trim,
+    split(d1),
+    map(pipe(
+      trim,
+      split(d2),
+      map(trim)
+    ))
+  )(x)
 })
 
 const j2 = (x) => JSON.stringify(x, null, 2)
@@ -59,24 +94,26 @@ const reduceToStrings = reduce((x, [k, v]) => x + `\n  ${k}: ${v},`, ``)
 
 module.exports = function templatedComponentGenerator(plop) {
   plop.setHelper(`proptypes`, pipe(
+    // split first on commas, then colons
     doubleSplit(`,`, `:`),
-    map(([k, v]) => [k, addRequirement(k, convertTSToPropTypes(v))]),
+    // convert TS tuples to proptypes,
+    map(alterLastIndex(convertTSToPropTypes)),
+    // add `isRequired` to any key that ends in a ?
+    map(addRequirement),
+    // convert to a writeable format
     reduceToStrings,
-    (x) => x.substr(0, x.length - 1)
+    // remove the last character, which is a comma
+    removeLast
   ))
-  plop.setHelper(`typescript`, (props) => {
-    const converted = pipe(
-      // split(`,`),
+  plop.setHelper(`typescript`, pipe(
+      // split first on commas, then colons
       doubleSplit(`,`, `:`),
-      reduceToStrings
-      // map(([k, v]) => `  ${k}: ${v}`),
-      // join(`\n`),
-      // trace(`what is this?!?!?!`)
-    )(props)
-    // console.log(`props`, props, converted)
-    return converted.substr(0, converted.length - 1)
-    // return props
-  })
+      // convert to a writeable format
+      reduceToStrings,
+      // remove the last character, which is a comma
+      removeLast
+    )
+  )
   plop.setHelper(`html2jsx`, (name, template) => {
     const hatemail = fs.readFileSync(template, `utf8`)
     const converter = new HTML2JSX({

@@ -3830,9 +3830,19 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
-f-utility@3.3.5, f-utility@^3.3.5:
+f-utility@3.3.5:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/f-utility/-/f-utility-3.3.5.tgz#67380e79889f989c16306d124a56bee9b76e9b21"
+  dependencies:
+    entrust "0.0.11"
+    fantasy-land "3.4.0"
+    fast.js "^0.1.1"
+    flatmap-fast "^3.0.0"
+    katsu-curry "^0.6.0"
+
+f-utility@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/f-utility/-/f-utility-3.4.0.tgz#173460688ffbf502cc659b96a6b53f886fbbc2d4"
   dependencies:
     entrust "0.0.11"
     fantasy-land "3.4.0"

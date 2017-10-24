@@ -83,12 +83,14 @@
     "test": "nps test",
     "build": "nps build",
     "care": "nps care",
-    "precommit": "nps precommit"
+    "precommit": "nps precommit",
+    "quickclean": "rm cool-hot-mess.tsx",
+    "quicktest": "plop react2angular 'cool hot mess' test/fixture/component.html 'a: string, b: boolean, c?: any'"
   },
   "dependencies": {
     "commander": "^2.11.0",
     "css-to-json": "^2.1.0",
-    "f-utility": "^3.3.5",
+    "f-utility": "^3.4.0",
     "fluture": "^7.1.3",
     "globby": "^6.1.0",
     "htmltojsx": "^0.3.0",
