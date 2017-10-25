@@ -15,7 +15,19 @@ import {
 import * as HTML2JSX from 'htmltojsx'
 import * as filePath from 'inquirer-file-path'
 
-export default function templatedComponentGenerator(plop) {
+interface PlopGenerator {
+  description: string
+  prompts: any[],
+  actions: any[]
+}
+interface Plop {
+  setHelper(name: string, fn: Function): void
+  setPrompt(name: string, fn: any): void
+  getPlopfilePath(): string
+  setGenerator(name: string, obj: PlopGenerator): string
+}
+
+export = function templatedComponentGenerator(plop: Plop): void {
   const thingHas = curry((thing: any, x: string): boolean => thing.includes(x))
   const regexValidate = curry((regex: any, name: string, expected: string): boolean | string => (
     regex.test(expected) ?
@@ -83,7 +95,7 @@ export default function templatedComponentGenerator(plop) {
 
   // this is what ultimately formats the content that we print in the proptypes / interface
   const formatLines = curry(
-    (delim, arr) => reduce(
+    (delim: string, arr: string[][]): string => reduce(
       (x, [k, v]) => x + `\n  ${k}: ${v}${delim}`,
       ``,
       arr
@@ -106,7 +118,7 @@ export default function templatedComponentGenerator(plop) {
    * @returns {String} a string that is the proptype representation of the same thing (hopefully?)
    */
   const convertTSToPropTypes = pipe(
-    (v: string): string => {
+    (v: string): string | undefined => {
       // later maybe we can add shapes or whatever
       if (v === `object`) {
         return `any`
@@ -120,7 +132,7 @@ export default function templatedComponentGenerator(plop) {
         `any`,
         `number`
       ]
-      if (unchangedTypes.includes(v)) {
+      if (thingHas(unchangedTypes, v)) {
         return v
       }
       if (v.indexOf(`[]`) > -1) {
@@ -168,12 +180,12 @@ export default function templatedComponentGenerator(plop) {
   ))
 
   // make a hatemail converter
-  const hatemailToJSX = new HTML2JSX({
+  const hatemailToJSX = new (HTML2JSX as any)({
     indent: `  `,
     hideComment: true,
     createClass: false
   })
-  plop.setHelper(`html2jsx`, (name, template) => {
+  plop.setHelper(`html2jsx`, (name: string, template: string): string => {
     // grab our template
     // TODO: make this async?
     const hatemail = fs.readFileSync(template, `utf8`)

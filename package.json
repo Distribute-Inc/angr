@@ -6,7 +6,7 @@
   "main": "angr.js",
   "module": "angr.mjs",
   "types": [
-    "src/index.d.ts"
+    "typings"
   ],
   "files": [
     "angr.*"

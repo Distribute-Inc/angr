@@ -62,7 +62,7 @@ declare module 'katsu-curry' {
     (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
   }
   export function I<T>(a: T): T;
-  export function K(): <T>(a: T) => T;
+  export function K<T>(a: T): () => T;
   export function compose<V0, T1>(
     fn0: (x0: V0) => T1
   ): (x0: V0) => T1;

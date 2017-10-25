@@ -14,7 +14,9 @@
     ],
     "types": [
       "node",
-      "katsu-curry"
+      "htmltojsx",
+      "f-utility",
+      "inquirer-file-path"
     ],
     "baseUrl": ".",
     "paths": {
@@ -33,6 +35,9 @@
   },
   "exclude": [
     "*.html",
+    "*.scss",
+    "*.spec.*",
+    "*.fixture.*",
     "node_modules"
   ]
 }

@@ -64,12 +64,22 @@ declare module 'f-utility' {
     (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => R;
     (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
   }
-  export function I<T>(a: T): T;
-  export function K(): <T>(a: T) => T;
 
-  export function alterIndex(index: number, fn: (x: any) => any, array: any[]): any[]
-  export function alterFirstIndex(fn: (x: any) => any, array: any[]): any[]
-  export function alterLastIndex(fn: (x: any) => any, array: any[]): any[]
+  type UnaryAny = ( a: any ) => any
+  type UnaryAnyArray = ( a: any[] ) => any[]
+  type BinaryAny = ( a: any, b: any) => any
+
+  export function I<T>(a: T): T;
+  export function K<T>(a: T): () => T;
+
+  type IndexedAlter = (fn: UnaryAny, array: any[]) => any[]
+  export function alterIndex(index: number, fn: UnaryAny, array: any[]): any[]
+  export function alterIndex(index: number): IndexedAlter
+  export function alterFirstIndex(fn: UnaryAny, array: any[]): any[]
+  export function alterFirstIndex(fn: UnaryAny): UnaryAnyArray
+  export function alterLastIndex(fn: UnaryAny, array: any[]): any[]
+  export function alterLastIndex(fn: UnaryAny): UnaryAnyArray
+
 
   export function compose<V0, T1>(
     fn0: (x0: V0) => T1
@@ -450,9 +460,6 @@ declare module 'f-utility' {
     fn8: (x: T8) => T9,
     fn9: (x: T9) => T10
   ): (x0: V0, x1: V1, x2: V2) => T10;
-
-  type UnaryAny = ( a: any ) => any
-  type BinaryAny = ( a: any, b: any) => any
 
   export function reduce(fn: BinaryAny, init: any, data: any[]): any
   export function reduce(fn: BinaryAny): (init: any, data: any[]) => any
