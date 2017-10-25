@@ -1,15 +1,15 @@
 {
-  "name": "crang",
+  "name": "angr",
   "version": "0.0.0",
-  "description": "curry functions with placeholders or in object form",
+  "description": "make angular2react components with ease (maybe not good ones though)",
   "license": "ISC",
-  "main": "crang.js",
-  "module": "crang.mjs",
+  "main": "angr.js",
+  "module": "angr.mjs",
   "types": [
     "src/index.d.ts"
   ],
   "files": [
-    "crang.*"
+    "angr.*"
   ],
   "jest": {
     "modulePaths": [
@@ -22,12 +22,7 @@
     "coveragePathIgnorePatterns": [],
     "mapCoverage": true,
     "moduleNameMapper": {
-      "@combinators/(.*)\\.(.*)": "<rootDir>/src/combinators/$1.$2",
-      "@params/(.*)\\.(.*)": "<rootDir>/src/params/$1.$2",
-      "@fp/(.*)\\.(.*)": "<rootDir>/src/fp/$1.$2",
-      "@object/(.*)\\.(.*)": "<rootDir>/src/object/$1.$2",
-      "@placeholder/(.*)\\.(.*)": "<rootDir>/src/placeholder/$1.$2",
-      "@utils/(.*)\\.(.*)": "<rootDir>/src/utils/$1.$2"
+
     },
     "moduleFileExtensions": [
       "ts",
@@ -57,12 +52,8 @@
       "coverage",
       "src/*.spec.js",
       "src/*.fixture.js",
-      "src/**/index.js",
-      "src/index.js",
-      "src/combinators.js",
-      "src/testing-helper.js",
-      "crang.js",
-      "crang.es.js"
+      "angr.js",
+      "angr.es.js"
     ],
     "include": [
       "src/*.js",
@@ -85,12 +76,13 @@
     "care": "nps care",
     "precommit": "nps precommit",
     "quickclean": "rm cool-hot-mess.tsx",
-    "quicktest": "plop react2angular 'cool hot mess' test/fixture/component.html 'a: string, b: boolean, c?: any'"
+    "quicktest": "plop react2angular 'cool hot mess' test/fixture/component.html 'a: string, b: boolean, c?: any, d: boolean[]  '",
+    "quick": "npm run quicktest && cat cool-hot-mess.tsx && npm run quickclean"
   },
   "dependencies": {
     "commander": "^2.11.0",
     "css-to-json": "^2.1.0",
-    "f-utility": "^3.4.0",
+    "f-utility": "^3.4.1",
     "fluture": "^7.1.3",
     "globby": "^6.1.0",
     "htmltojsx": "^0.3.0",
@@ -173,6 +165,6 @@
     "webpack": "2.2.x",
     "xtrace": "^0.1.6"
   },
-  "repository": "https://github.com/brekk/crang",
-  "author": "brekk"
+  "repository": "https://github.com/Distribute-Inc/angr",
+  "author": "Distribute"
 }

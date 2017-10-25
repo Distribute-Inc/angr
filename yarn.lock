@@ -3840,9 +3840,9 @@ f-utility@3.3.5:
     flatmap-fast "^3.0.0"
     katsu-curry "^0.6.0"
 
-f-utility@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/f-utility/-/f-utility-3.4.0.tgz#173460688ffbf502cc659b96a6b53f886fbbc2d4"
+f-utility@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/f-utility/-/f-utility-3.4.1.tgz#7d3f5b9d9633167987077e116bde096e06d4e5f2"
   dependencies:
     entrust "0.0.11"
     fantasy-land "3.4.0"
