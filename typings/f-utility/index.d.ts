@@ -1,6 +1,9 @@
-declare module 'katsu-curry' {
+declare module 'f-utility' {
   export type PLACEHOLDER = '🍛';
   export const $: PLACEHOLDER;
+  interface Functor<T> {
+      map<U>(fn: (t: T) => U): Functor<U>;
+  }
   interface CurriedTypeGuard2<T1, T2, R extends T2> {
     (t1: T1): (t2: T2) => t2 is R;
     (t1: T1, t2: T2): t2 is R;
@@ -63,6 +66,11 @@ declare module 'katsu-curry' {
   }
   export function I<T>(a: T): T;
   export function K(): <T>(a: T) => T;
+
+  export function alterIndex(index: number, fn: (x: any) => any, array: any[]): any[]
+  export function alterFirstIndex(fn: (x: any) => any, array: any[]): any[]
+  export function alterLastIndex(fn: (x: any) => any, array: any[]): any[]
+
   export function compose<V0, T1>(
     fn0: (x0: V0) => T1
   ): (x0: V0) => T1;
@@ -199,9 +207,15 @@ declare module 'katsu-curry' {
   ): CurriedFunction6<T1, T2, T3, T4, T5, T6, TResult>;
   export function curry(fn: (...a: any[]) => any): (...a: any[]) => any;
 
-  export function curryObjectK(keys: string[], fn: (a: any) => any): (a: any) => any;
-  export function curryObjectN(n: number, fn: (a: any) => any): (a: any) => any;
-  export function curryObjectKN(n: number, fn: (a: {n: number, k: string[]}) => any): (a: any) => any;
+  export function curryObjectK(keys: string[], fn: UnaryAny): UnaryAny;
+  export function curryObjectN(n: number, fn: UnaryAny): UnaryAny;
+  export function curryObjectKN(n: number, fn: (a: {n: number, k: string[]}) => any): UnaryAny;
+
+  export function map<T, U>(fn: (x: T) => U, list: T[]): U[];
+  export function map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
+  export function map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
+  export function map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T], obj: T): U;
+  export function map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T]): (obj: T) => U;
 
   export function pipe<V0, T1>(
     fn0: (x0: V0) => T1
@@ -437,7 +451,18 @@ declare module 'katsu-curry' {
     fn9: (x: T9) => T10
   ): (x0: V0, x1: V1, x2: V2) => T10;
 
-  export function remap(indices: number[], fn: (a: any) => any): (a: any) => any;
-  export function remapArray(indices: number[], arr: any[]): any[];
+  type UnaryAny = ( a: any ) => any
+  type BinaryAny = ( a: any, b: any) => any
 
+  export function reduce(fn: BinaryAny, init: any, data: any[]): any
+  export function reduce(fn: BinaryAny): (init: any, data: any[]) => any
+  export function reduce(fn: BinaryAny, init: any): UnaryAny
+
+  export function remap(indices: number[], fn: UnaryAny): UnaryAny;
+  export function remap(indices: number[]): (fn: UnaryAny) => UnaryAny;
+  export function remapArray(indices: number[], arr: any[]): any[];
+  export function split(delimiter: string, str: string): string[];
+  export function split(delimiter: string): (str: string) => string[];
+
+  export function trim(str: string): string;
 }
