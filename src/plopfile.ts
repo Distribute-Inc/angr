@@ -12,6 +12,7 @@ import {
   trim
 } from 'f-utility'
 // import {trace} from 'xtrace'
+const trace = curry((a, b) => {console.log(a, b); return b})
 import * as HTML2JSX from 'htmltojsx'
 import * as filePath from 'inquirer-file-path'
 
@@ -72,16 +73,20 @@ export = function templatedComponentGenerator(plop: Plop): void {
   const splitTwice = curry((d1: string, d2: string, x: string): string[][]  => {
     // check to see if there's a prop on x
     const has = thingHas(x)
+    console.log(`XXXXX`, x)
     // shortcut early
-    if (!x || !has(d1) || !has(d2)) {
+    if (!x || !has(d2)) {
       return []
     }
     return pipe(
       trim,
       split(d1),
+      trace(`splits!`),
       map(pipe(
         trim,
+        trace(`trum!`),
         split(d2),
+        trace(`re-split!`),
         map(trim)
       ))
     )(x)
