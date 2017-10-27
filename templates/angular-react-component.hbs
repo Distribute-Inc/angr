@@ -17,8 +17,10 @@ export const propTypes = {
   {{{proptypes types}}}
 }
 
+type ComponentType = React.StatelessComponent<{{pascalCase name}}Interface>
+
 // this is our react component
-export const {{pascalCase name}}: React.StatelessComponent<{{pascalCase name}}Interface> = (props: {{pascalCase name}}Interface) => {
+export const {{pascalCase name}}: ComponentType = (props: {{pascalCase name}}Interface) => {
   return ({{{html2jsx (pascalCase name) template}}})
 }
 // needs propTypes for react2angular to work
